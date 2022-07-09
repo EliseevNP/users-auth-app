@@ -1,0 +1,42 @@
+[
+  {
+    "user_id": "2cba932d-591c-439d-9b60-ea9ba15f7c45",
+    "username": "daenerys",
+    "password_hash": "$2a$10$SguLFXm.GXzYcuCguo1ceeaXdfvBGD3QIdEr7bGJCYz2CP3V0oVFq",
+    "name": "Дейнерис",
+    "surname": "Таргариен",
+    "patronymic": null
+  },
+  {
+    "user_id": "dd661ecf-6825-4b36-b6d5-8889d06485ea",
+    "username": "robert",
+    "password_hash": "$2a$10$T65RyA2Rs3pTB.GaOSRK1ukpz0AoLUh/ifTa2q8yI.zAoOSRGaG8u",
+    "name": "Роберт",
+    "surname": "Баратеон",
+    "patronymic": null
+  },
+  {
+    "user_id": "e0126710-3a77-4608-8317-df9b04971791",
+    "username": "arya",
+    "password_hash": "$2a$10$bPlBGCBR83ullnvq3spA2euA.pR.ZvcK.RvnSHRJz67VgVBdgnJ1i",
+    "name": "Арья",
+    "surname": "Старк",
+    "patronymic": null
+  },
+  {
+    "user_id": "c16d5df8-806d-4a52-9631-a201eb16b683",
+    "username": "tyrion",
+    "password_hash": "$2a$10$Det1J2HEEDtZAFkMnliBou39lFrzVpDk1sxA8qUN4gwXd9C4YSJOW",
+    "name": "Тирион",
+    "surname": "Ланнистер",
+    "patronymic": null
+  },
+  {
+    "user_id": "172fe518-ec9c-459e-8968-28f26ce9da29",
+    "username": "jon",
+    "password_hash": "$2a$10$jve3a6x1sUeiQZQ1KGcc2e3YjAHLVEICwLhjW9G//Fm9fW5rlQwO",
+    "name": "Джон",
+    "surname": "Сноу",
+    "patronymic": null
+  }
+]
