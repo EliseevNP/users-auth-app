@@ -2,6 +2,8 @@ import { Context, Errors } from 'moleculer';
 import _ from 'lodash';
 import bcrypt from 'bcrypt';
 import jwt, { JwtPayload, JsonWebTokenError } from 'jsonwebtoken';
+import { v4 } from 'uuid';
+import { Op } from 'sequelize';
 import {
   ActionLink, ActionService, ServiceLink, AUTH_CONFIG,
 } from '../../common';
@@ -15,6 +17,11 @@ class AuthService extends ActionService {
     rest: 'POST /signup',
     description: 'Регистрация пользователя',
     params: {
+      userId: {
+        type: 'uuid',
+        optional: true,
+        default: () => v4(),
+      },
       username: {
         type: 'string',
         optional: false,
@@ -43,6 +50,7 @@ class AuthService extends ActionService {
     },
   })
   public async signup(ctx: Context<{
+    userId: string,
     username: string,
     password: string,
     name?: string | null,
@@ -50,6 +58,7 @@ class AuthService extends ActionService {
     patronymic?: string | null,
   }>): Promise<any> {
     const {
+      userId,
       username,
       password,
       name,
@@ -57,9 +66,14 @@ class AuthService extends ActionService {
       patronymic,
     } = ctx.params;
 
-    const isUsernameAlreadyInUse = !!await User.count({ where: { username } });
+    const existingUser = await User.findOne({ where: { [Op.or]: [{ userId }, { username }] } });
 
-    if (isUsernameAlreadyInUse) {
+    if (existingUser?.userId === userId) {
+      // duplicated request, so just return existing user
+      return _.omit(existingUser.get({ plain: true }), 'passwordHash');
+    }
+
+    if (existingUser?.username === username) {
       throw new Errors.MoleculerClientError('username already in use', 400, 'USERNAME_ALREADY_IN_USE')
     }
 
@@ -67,6 +81,7 @@ class AuthService extends ActionService {
     const passwordHash = bcrypt.hashSync(password, salt);
 
     const user = await User.create({
+      userId,
       username,
       passwordHash,
       name,

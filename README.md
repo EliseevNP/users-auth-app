@@ -60,3 +60,17 @@ helm upgrade --install prometheus-stack prometheus-community/kube-prometheus-sta
 $ helm upgrade --install api-gateway ./api-gateway/helm  --namespace users-auth-app
 $ helm upgrade --install users-auth ./users-auth/helm  --namespace users-auth-app
 ```
+
+### 1.4 Troubleshooting
+
+If you have following error when installing api-gateway:
+
+```shell
+Error: UPGRADE FAILED: failed to create resource: Internal error occurred: failed calling webhook "validate.nginx.ingress.kubernetes.io": failed to call webhook: Post "https://ingress-nginx-controller-admission.users-auth-app.svc:443/networking/v1/ingresses?timeout=10s": x509: certificate is valid for minikubeCA, control-plane.minikube.internal, kubernetes.default.svc.cluster.local, kubernetes.default.svc, kubernetes.default, kubernetes, localhost, not ingress-nginx-controller-admission.users-auth-app.svc
+```
+
+You can try this:
+
+```shell
+kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+```
